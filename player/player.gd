@@ -73,6 +73,12 @@ func _physics_process(delta):
 		change_state(IDLE)
 	if state in [IDLE,RUN] and !is_on_floor():
 		change_state(JUMP)
+	if state == HURT:
+		return
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().is_in_group("danger"):
+			hurt()
 
 func reset(_position):
 	position = _position
